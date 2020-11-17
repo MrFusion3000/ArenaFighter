@@ -10,7 +10,7 @@ namespace ArenaFighter
         //private int _strength; //field
         //private int _health; //field
 
-        //Fighter Overload - if name is omitted it's considered to be an opponent
+        //Fighter Overload 0 - if name is omitted it's considered to be an opponent
         public Fighter() 
         {
             FirstName = OpponentRndFirstName();
@@ -19,7 +19,7 @@ namespace ArenaFighter
             Strength = StrengthConfig();
         }
 
-        //Fighter Overload - if name is entered it's considered to be the player
+        //Fighter Overload 1 - if name is entered it's considered to be the player
         public Fighter(string firstName, string lastName)
         {
             FirstName = firstName;
@@ -41,14 +41,14 @@ namespace ArenaFighter
         {
             Dice rndDice = new Dice();
 
-            return rndDice.RandomDice(1, 6);
+            return rndDice.ThrowDice;
         }
 
         public int HealthConfig()
         {
             Dice rndDice = new Dice();
 
-            return rndDice.RandomDice(1, 6);
+            return rndDice.ThrowDice;
         }
 
         public string OpponentRndFirstName()
@@ -67,10 +67,10 @@ namespace ArenaFighter
                 "Witchmastress"
             };
 
-            Dice rndDice = new Dice();
+            Dice rndDice = new Dice(1,10);
 
             // Randomize name from list
-            string OpponentFirstName = OpponentFirstNameList.ElementAt(rndDice.RandomDice(1, 10));
+            string OpponentFirstName = OpponentFirstNameList.ElementAt(rndDice.ThrowDice);
 
             return OpponentFirstName;
         }
@@ -91,10 +91,10 @@ namespace ArenaFighter
                 "MacDougall"
             };
 
-            Dice rndDice = new Dice();
+            Dice rndDice = new Dice(1,10);
 
             // Randomize name from list
-            string OpponentLastName = OpponentLastNameList.ElementAt(rndDice.RandomDice(1, 10));
+            string OpponentLastName = OpponentLastNameList.ElementAt(rndDice.ThrowDice);
 
             return OpponentLastName;
         }
