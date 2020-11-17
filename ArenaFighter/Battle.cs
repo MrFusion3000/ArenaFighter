@@ -8,9 +8,9 @@ namespace ArenaFighter
     class Battle
     {
         //Fighter player = new Fighter();
-        Fighter opponent = new Fighter();
+        //Fighter opponent = new Fighter();
 
-        ArrayList rounds = new ArrayList();        
+        //ArrayList rounds = new ArrayList();        
 
 
     }
