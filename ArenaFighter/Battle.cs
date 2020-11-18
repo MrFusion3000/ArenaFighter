@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace ArenaFighter
 {
@@ -9,8 +11,8 @@ namespace ArenaFighter
     {
         public Battle(Fighter Player)
         {
-            //Create New Opponent
-            Fighter Opponent = new Fighter();
+        //Create New Opponent
+        Fighter Opponent = new Fighter();
 
             //Print info to console
             Console.WriteLine("Player:");
@@ -21,13 +23,7 @@ namespace ArenaFighter
             Console.WriteLine("Opponent:");
             Console.WriteLine("Name:" + Opponent.FirstName + " " + Opponent.LastName);
             Console.WriteLine("Health: " + Opponent.Health);
-            Console.WriteLine("Strength " + Opponent.Strength + "\n");
-
-            //Dice playerDice = new Dice(1,6); //Create dice object for player
-            //Dice opponentDice = new Dice(1,6); //Create dice object for opponent
-            
-            //Player.Health += playerDice.ThrowDice; //Simulate Dice throw for player
-            //Opponent.Health += opponentDice.ThrowDice; // Simulate Dice throw for opponent
+            Console.WriteLine("Strength " + Opponent.Strength + "\n");        
 
             CreateRounds(Player, Opponent);
         }
@@ -40,47 +36,91 @@ namespace ArenaFighter
 
             //Create list to hold all battle rounds for one battle
             List<Round> FightRounds = new List<Round>();
+            int PlayerScore = 0;           
+            int OpponentScore= 0;
 
             while (!roundOver)
             {
-                FightRounds.Add(new Round(Player, Opponent));
-
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("----------------------------------------------");
                 Console.WriteLine("Get ready!\nPress any key for round no {0}!", i);
+                Console.WriteLine("----------------------------------------------");
+
                 Console.ReadKey();
 
+                Console.ForegroundColor = ConsoleColor.Gray;
+                FightRounds.Add(new Round(Player, Opponent));
+                PlayerScore += FightRounds[i-1].PlayerPoints;
+                OpponentScore += FightRounds[i-1].OpponentPoints;
+
+                Console.WriteLine("\t" + Player.FirstName + " " + Player.LastName + "\t" + PlayerScore + "\t-\t" + OpponentScore + "\t" + Opponent.FirstName + " " + Opponent.LastName);
                 i++;
                 if (Player.Health <= 0)
                 {
-                    Player.Health = 0;
-                    Console.WriteLine("Playa' be dead! \n{0} ", Player.Health);
+                    Pause();
+                    //Player.Health = 0;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.WriteLine("Playa' be dead!");
+                    Console.WriteLine("--------------------------------------------------\n");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+
                     roundOver = true;
+                    Pause();
                 }
                 if (Opponent.Health <= 0)
                 {
-                    Opponent.Health = 0;
-                    Console.WriteLine("Opponent be dead! \n{0}", Opponent.Health);
+                    Pause();
+                    //Opponent.Health = 0;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.WriteLine("Opponent be dead!");
+                    Console.WriteLine("--------------------------------------------------\n");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+
+                    Console.WriteLine("Player gets a health and strength refill!");
+                    //Give Player replenished Health and Strength
+                    Player.Strength = Player.AttributeConfig();
+                    Player.Health = Player.AttributeConfig();
                     roundOver = true;
+                    Pause();
                 }
             }
 
             int j = 1;
             foreach (var item in FightRounds)
             {
+                Pause();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("Log For Round: " + j);
-                Console.WriteLine("--------------------");
-                Console.WriteLine(FightRounds[j-1].RoundLogMessage);
-                Console.WriteLine("--------------------");
+                Console.WriteLine("--------------------------------------------------");
+                Pause();
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine(FightRounds[j - 1].RoundLogMessage); //+ "\nRound Score: " + FightRounds[j-1].PlayerPoints + " - " + FightRounds[j-1].OpponentPoints);
+                Console.ForegroundColor = ConsoleColor.White;
+                Pause();
+                Console.WriteLine("--------------------------------------------------\n");
+                Console.ForegroundColor = ConsoleColor.Gray;
 
-                //Console.WriteLine("Player health: " + Player.Health + "\n");
-                //Console.WriteLine("Opponent health: " + Opponent.Health + "\n");
+
+                //Add points from each round to the Players TotalScore
+                Player.TotalScore += FightRounds[j - 1].PlayerPoints;
+
                 j++;
             }
             Console.ReadKey();
         
         }
-        public object Player { get; }
-        public object Opponent { get; }
-        public object Round { get; }
+        public void Pause()
+        {
+            var stopwatch = Stopwatch.StartNew();
+            Thread.Sleep(500);
+            stopwatch.Stop();
+        }
 
+        //public object Player { get; }
+        //public object Opponent { get; }
+        //public object Round { get; }
     }
 }
