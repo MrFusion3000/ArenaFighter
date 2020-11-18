@@ -7,16 +7,13 @@ namespace ArenaFighter
 {
     class Fighter
     {
-        //private int _strength; //field
-        //private int _health; //field
-
         //Fighter Overload 0 - if name is omitted it's considered to be an opponent
         public Fighter() 
         {
             FirstName = OpponentRndFirstName();
             LastName = OpponentRndLastName();
-            Health = HealthConfig();
-            Strength = StrengthConfig();
+            Health = AttributeConfig();
+            Strength = AttributeConfig();
         }
 
         //Fighter Overload 1 - if name is entered it's considered to be the player
@@ -24,32 +21,27 @@ namespace ArenaFighter
         {
             FirstName = firstName;
             LastName = lastName;
-            Health = HealthConfig();
-            Strength = StrengthConfig();
+            Health = AttributeConfig();
+            Strength = AttributeConfig();
         }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
         public int Strength { get; set; }
-
         public int Health { get;  set; }
 
-        public override string ToString() => FirstName + LastName;
+        //public override string ToString() => FirstName + LastName;
 
-        public int StrengthConfig()
+        public int AttributeConfig()
         {
-            Dice rndDice = new Dice();
+            Dice rndDice1 = new Dice(1, 6);
+            Dice rndDice2 = new Dice(1, 6);
 
-            return rndDice.ThrowDice;
+            int rnd = rndDice1.ThrowDice + rndDice2.ThrowDice;
+            return rnd;
         }
 
-        public int HealthConfig()
-        {
-            Dice rndDice = new Dice();
-
-            return rndDice.ThrowDice;
-        }
+        private readonly Dice rndDice = new Dice(0, 9);
 
         public string OpponentRndFirstName()
         {
@@ -67,9 +59,7 @@ namespace ArenaFighter
                 "Witchmastress"
             };
 
-            Dice rndDice = new Dice(1,10);
-
-            // Randomize name from list
+            // Randomize Firstname from list
             string OpponentFirstName = OpponentFirstNameList.ElementAt(rndDice.ThrowDice);
 
             return OpponentFirstName;
@@ -86,14 +76,12 @@ namespace ArenaFighter
                 "Washbagger",
                 "Flamer",
                 "Berzerk",
-                "Biatchsmasher",
+                "Sssmasher",
                 "Hornblower",
                 "MacDougall"
             };
 
-            Dice rndDice = new Dice(1,10);
-
-            // Randomize name from list
+            // Randomize Lastname from list
             string OpponentLastName = OpponentLastNameList.ElementAt(rndDice.ThrowDice);
 
             return OpponentLastName;
