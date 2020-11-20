@@ -37,14 +37,14 @@ namespace ArenaFighter
             //Create list to hold all battle rounds for one battle
             List<Round> FightRounds = new List<Round>();
             int PlayerScore = 0;           
-            int OpponentScore= 0;
+            int OpponentScore = 0;
 
             while (!roundOver)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("----------------------------------------------");
-                Console.WriteLine("Get ready!\nPress any key for round no {0}!", i);
-                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine("\t--------------------------------------------------");
+                Console.WriteLine("\tGet ready!\n\tPress any key for round no {0}!", i);
+                Console.WriteLine("\t--------------------------------------------------\n");
 
                 Console.ReadKey();
 
@@ -60,9 +60,9 @@ namespace ArenaFighter
                     Pause();
                     //Player.Health = 0;
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("--------------------------------------------------");
-                    Console.WriteLine("Playa' be dead!");
-                    Console.WriteLine("--------------------------------------------------\n");
+                    Console.WriteLine("\t--------------------------------------------------");
+                    Console.WriteLine("\tPlaya' be dead!");
+                    Console.WriteLine("\t--------------------------------------------------\n");
                     Console.ForegroundColor = ConsoleColor.Gray;
 
                     roundOver = true;
@@ -78,7 +78,8 @@ namespace ArenaFighter
                     Console.WriteLine("--------------------------------------------------\n");
                     Console.ForegroundColor = ConsoleColor.Gray;
 
-                    Console.WriteLine("Player gets a health and strength refill!");
+                    Console.WriteLine("Player gets a health and strength refill!\n");
+
                     //Give Player replenished Health and Strength
                     Player.Strength = Player.AttributeConfig();
                     Player.Health = Player.AttributeConfig();
@@ -87,12 +88,13 @@ namespace ArenaFighter
                 }
             }
 
+            Pause();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("--------------------------------------------------");
             int j = 1;
             foreach (var item in FightRounds)
-            {
-                Pause();
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("--------------------------------------------------");
+            {                
                 Console.WriteLine("Log For Round: " + j);
                 Console.WriteLine("--------------------------------------------------");
                 Pause();
@@ -103,14 +105,11 @@ namespace ArenaFighter
                 Console.WriteLine("--------------------------------------------------\n");
                 Console.ForegroundColor = ConsoleColor.Gray;
 
-
                 //Add points from each round to the Players TotalScore
                 Player.TotalScore += FightRounds[j - 1].PlayerPoints;
 
                 j++;
-            }
-            Console.ReadKey();
-        
+            }       
         }
         public void Pause()
         {
@@ -118,9 +117,5 @@ namespace ArenaFighter
             Thread.Sleep(500);
             stopwatch.Stop();
         }
-
-        //public object Player { get; }
-        //public object Opponent { get; }
-        //public object Round { get; }
     }
 }

@@ -23,6 +23,7 @@ namespace ArenaFighter
             LastName = lastName;
             Health = AttributeConfig();
             Strength = AttributeConfig();
+            TotalScore = 0;
         }
 
         public string FirstName { get; set; }

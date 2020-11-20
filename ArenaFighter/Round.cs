@@ -36,7 +36,6 @@ namespace ArenaFighter
                 RoundLogMessage = Opponent.FirstName + " " + Opponent.LastName + " takes a blow of " + playerDice + ".\nLeaving the opponent with " + Opponent.Health + " health and " + Opponent.Strength + " strength.\nThe player with " + Player.Health + " health and " + Player.Strength + " strength.\nPlayer Wins The Round!";                
                 Console.WriteLine(RoundLogMessage + "\n");
                 Pause();
-
             }
             else
             {
@@ -52,7 +51,6 @@ namespace ArenaFighter
                 RoundLogMessage = Player.FirstName + " " + Player.LastName + " takes a blow of " + opponentDice + ".\nLeaving the player with " + Player.Health + " health and " + Player.Strength + " strength.\nThe opponent with " + Opponent.Health + " health and " + Opponent.Strength + " strength.\nOpponent Wins The Round!";
                 Console.WriteLine(RoundLogMessage+ "\n");
                 Pause();
-
             }
         }
 
