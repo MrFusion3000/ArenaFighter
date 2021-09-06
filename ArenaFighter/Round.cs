@@ -24,8 +24,10 @@ namespace ArenaFighter
             //Check which dice are bigger
             if (playerDice > opponentDice)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("{1} rolls a {0}, Health: {2}, Strenght: {3}\n", playerDice, Player.FirstName + " " + Player.LastName, Player.Health, Player.Strength);
                 Pause();
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("{1} rolls a {0}, Health: {2}, Strength: {3}\n", opponentDice, Opponent.FirstName + " " + Opponent.LastName, Opponent.Health, Opponent.Strength);
                 Pause();
                 Opponent.Health -= playerDice;
@@ -33,6 +35,7 @@ namespace ArenaFighter
                 Player.Strength -= 1;
                 PlayerPoints++;
 
+                Console.ForegroundColor = ConsoleColor.White;
                 RoundLogMessage = Opponent.FirstName + " " + Opponent.LastName + " takes a blow of " + playerDice + ".\nLeaving the opponent with " + Opponent.Health + " health and " + Opponent.Strength + " strength.\nThe player with " + Player.Health + " health and " + Player.Strength + " strength.\nPlayer Wins The Round!";                
                 Console.WriteLine(RoundLogMessage + "\n");
                 Pause();
@@ -48,7 +51,7 @@ namespace ArenaFighter
                 Opponent.Strength -= 1;
                 OpponentPoints ++;
 
-                RoundLogMessage = Player.FirstName + " " + Player.LastName + " takes a blow of " + opponentDice + ".\nLeaving the player with " + Player.Health + " health and " + Player.Strength + " strength.\nThe opponent with " + Opponent.Health + " health and " + Opponent.Strength + " strength.\nOpponent Wins The Round!";
+                RoundLogMessage = Player.FirstName + " " + Player.LastName + " takes a blow of " + opponentDice + ".\nLeaving the player with " + Player.Health + " health and " + Player.Strength + " strength,\nand the opponent with " + Opponent.Health + " health and " + Opponent.Strength + " strength.\nOpponent Wins The Round!";
                 Console.WriteLine(RoundLogMessage+ "\n");
                 Pause();
             }

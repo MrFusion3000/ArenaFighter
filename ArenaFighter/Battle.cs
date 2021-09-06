@@ -15,15 +15,28 @@ namespace ArenaFighter
         Fighter Opponent = new Fighter();
 
             //Print info to console
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n------------------------------");
             Console.WriteLine("Player:");
+            Console.WriteLine("------------------------------");
             Console.WriteLine("Name:" + Player.FirstName + " " + Player.LastName);
             Console.WriteLine("Health: " + Player.Health);
-            Console.WriteLine("Strength: " + Player.Strength + "\n");
+            Console.WriteLine("Strength: " + Player.Strength);
 
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.SetCursorPosition(32,1);
+            Console.WriteLine("------------------------------");
+            Console.SetCursorPosition(32,2);
             Console.WriteLine("Opponent:");
+            Console.SetCursorPosition(32,3);
+            Console.WriteLine("------------------------------");
+            Console.SetCursorPosition(32,4);
             Console.WriteLine("Name:" + Opponent.FirstName + " " + Opponent.LastName);
+            Console.SetCursorPosition(32,5);
             Console.WriteLine("Health: " + Opponent.Health);
-            Console.WriteLine("Strength " + Opponent.Strength + "\n");        
+            Console.SetCursorPosition(32,6);
+            Console.WriteLine("Strength " + Opponent.Strength + "\n\n");        
 
             CreateRounds(Player, Opponent);
         }
@@ -42,9 +55,9 @@ namespace ArenaFighter
             while (!roundOver)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("\t--------------------------------------------------");
+                Console.WriteLine("\t---------------------------------------------------");
                 Console.WriteLine("\tGet ready!\n\tPress any key for round no {0}!", i);
-                Console.WriteLine("\t--------------------------------------------------\n");
+                Console.WriteLine("\t---------------------------------------------------\n");
 
                 Console.ReadKey();
 
@@ -111,7 +124,8 @@ namespace ArenaFighter
                 j++;
             }       
         }
-        public void Pause()
+
+        private static void Pause()
         {
             var stopwatch = Stopwatch.StartNew();
             Thread.Sleep(500);

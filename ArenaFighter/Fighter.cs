@@ -52,7 +52,7 @@ namespace ArenaFighter
             {
                 "Sven",
                 "Colt",
-                "Sayonarah",
+                "Sayonarah Sarah",
                 "Billy-Bob",
                 "Cletus",
                 "Firehawk",
