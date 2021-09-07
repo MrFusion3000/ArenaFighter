@@ -13,9 +13,12 @@ namespace ArenaFighter
 
             var gameOn = true;
             //int j = 0;
-            
+
+            Fighter savedPlayer = null;
+            Fighter Player = null;
+
             //TODO Show Highscore on startscreen
-            
+
             while (gameOn)
             {
                 // Enter Player Fighter Name
@@ -29,17 +32,28 @@ namespace ArenaFighter
                 Console.WriteLine("\t--------------------------------------------------\n");
                 Console.ReadKey();
                 
-                Console.WriteLine("First, Enter your fighters first name: ");
-                var playerFirstName = Console.ReadLine();
-                Console.WriteLine("Now, Enter your fighters last name: ");
-                var playerLastName = Console.ReadLine();
-
-                // Create Player
-                var Player = new Fighter()
+                if (savedPlayer is null)
                 {
-                    FirstName = playerFirstName,
-                    LastName = playerLastName
-                };
+                    Player = CreateNewPlayer();
+                    savedPlayer = Player;
+                }
+                else
+                {
+                    Console.WriteLine("Would you like to reuse the last fighter? (Y/N)");
+                    var input = Console.ReadLine();
+                    switch (input)
+                    {
+                        case "N":
+                        case "n":
+                            Player = CreateNewPlayer();
+                            savedPlayer = Player;
+                            break;
+                        default:
+                            Player.ResetStats();
+                            break;
+                    }
+                }
+                
 
                 var tournamentOn = true;
 
@@ -107,6 +121,21 @@ namespace ArenaFighter
                     gameOn = false;
                 }
             }
+        }
+
+        static Fighter CreateNewPlayer()
+        {
+            Console.WriteLine("First, Enter your fighters first name: ");
+            var playerFirstName = Console.ReadLine();
+            Console.WriteLine("Now, Enter your fighters last name: ");
+            var playerLastName = Console.ReadLine();
+
+            // Create Player
+            return new Fighter()
+            {
+                FirstName = playerFirstName,
+                LastName = playerLastName
+            };
         }
     }
 }

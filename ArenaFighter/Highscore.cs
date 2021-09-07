@@ -44,9 +44,12 @@ namespace ArenaFighter
         public static void PrintHighScoreList()
         {
             if (!File.Exists("HighScoreList.txt"))
+            {
                 WriteHighScoreList("Anonymouse 0");
+            }
                 
-            var highscores = File.ReadAllLines(@"/HighScoreList.txt");
+                
+            var highscores = File.ReadAllLines("HighScoreList.txt");
             //Task<IEnumerable> highscores = ReadHighScoreListAsync();
             
             //Console.WriteLine(highscores);

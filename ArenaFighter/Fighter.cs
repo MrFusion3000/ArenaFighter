@@ -12,8 +12,7 @@ namespace ArenaFighter
         {
             FirstName = OpponentRndFirstName();
             LastName = OpponentRndLastName();
-            Health = AttributeConfig();
-            Strength = AttributeConfig();
+            ResetStats();
         }
 
         //Fighter Overload 1 - if name is entered it's considered to be the player
@@ -21,9 +20,7 @@ namespace ArenaFighter
         {
             FirstName = firstName;
             LastName = lastName;
-            Health = AttributeConfig();
-            Strength = AttributeConfig();
-            TotalScore = 0;
+            ResetStats();
         }
 
         public string FirstName { get; set; }
@@ -33,6 +30,13 @@ namespace ArenaFighter
         public int TotalScore { get; set; }
 
         //public override string ToString() => FirstName + LastName;
+
+        public void ResetStats()
+        {
+            Health = AttributeConfig();
+            Strength = AttributeConfig();
+            TotalScore = 0;
+        }
 
         public int AttributeConfig()
         {
