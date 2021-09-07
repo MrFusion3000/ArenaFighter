@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ArenaFighter
 {
@@ -46,7 +44,7 @@ namespace ArenaFighter
         private readonly Dice rndDiceFirst = new Dice(0, 9);
         private readonly Dice rndDiceLast = new Dice(0, 9);
 
-        public string OpponentRndFirstName()
+        private string OpponentRndFirstName()
         {
             var OpponentFirstNameList = new List<string>
             {
@@ -68,7 +66,7 @@ namespace ArenaFighter
             return OpponentFirstName;
         }
 
-        public string OpponentRndLastName()
+        private string OpponentRndLastName()
         {
             var OpponentLastNameList = new List<string>
             {

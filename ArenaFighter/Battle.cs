@@ -55,9 +55,9 @@ namespace ArenaFighter
             while (!roundOver)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("\t---------------------------------------------------");
+                Console.WriteLine("\t-------------------------------------------------------------");
                 Console.WriteLine("\tGet ready!\n\tPress any key for round no {0}!", i);
-                Console.WriteLine("\t---------------------------------------------------\n");
+                Console.WriteLine("\t-------------------------------------------------------------\n");
 
                 Console.ReadKey();
 
