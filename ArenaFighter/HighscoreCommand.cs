@@ -36,21 +36,16 @@ namespace ArenaFighter
             //var result = JsonConvert.SerializeObject(AddHighScoreEntry, Formatting.None);
             var result = JsonConvert.SerializeObject(newhighscore);
 
-            Console.WriteLine(File.Exists(SavedHighscoreListName)
-                ? "Fetching Highscores..."
-                : "No Highscores exists. Creating list...");
-
             await using var sw = File.AppendText(SavedHighscoreListName);
             await sw.WriteLineAsync(result);
 
             sw.Close();
-
-            Console.WriteLine("Highscore saved. Ready.");
         }
 
-        public static Highscore ReadHighScoreList()
+        public static List<Highscore> ReadHighScoreList()
         {
-            Highscore highscoreList = null;
+            Highscore highscore = null;
+            List<Highscore> highscoreList = new List<Highscore>();
 
             using var sr = File.OpenText(SavedHighscoreListName); 
             var s = "";
@@ -59,8 +54,8 @@ namespace ArenaFighter
             {
                 try
                 {
-                    highscoreList = JsonConvert.DeserializeObject<Highscore>(s);
-                    //highscoreList.Add(new Highscore(highscoreRead.));
+                    highscore = JsonConvert.DeserializeObject<Highscore>(s);
+                    highscoreList.Add(new Highscore(highscore.FirstName,highscore.LastName, highscore.Score));
                 }
                 catch (Exception ex)
                 {
@@ -69,40 +64,46 @@ namespace ArenaFighter
             }
 
             return highscoreList;
-
-            //if (!File.Exists("HighScoreList.txt"))
-            //WriteHighScoreList("Anonymouse 0");
-
-            //var highscores = File.ReadAllLines(@"/HighScoreList.txt");
-            //Task<IEnumerable> highscores = ReadHighScoreListAsync();
-
-            //Console.WriteLine(highscores);
-
-            //_highscores = Highscores.OrderByDescending(o => o.Score).ToList();
-
-            //List<Highscore> SortedList = _highscores.OrderBy(o => o.Score).ToList();
-
-            //var j = 0;
-            //foreach (var item in highscores)
-            //{
-            //Console.WriteLine(_highscores[j].Name + "\t-\t" + _highscores[j].Score + "\n");
-            //Console.WriteLine(item);
-            //j++;
-            //}
         }
         
         public List<Highscore> InitCreateTop10()
         {
-            for (int i = 0; i < 9; i++)
-            {
-                highscoreList.Add(new Highscore("Anony","mouse", 1+i));
-            }
+            Console.WriteLine(File.Exists(SavedHighscoreListName)
+                ? "Fetching Highscores..."
+                : "No Highscores exists. Creating list...");
             
-            highscoreList = highscoreList.OrderByDescending(o => o.Score).ToList();
+            if (!File.Exists("Highscore.txt"))
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    highscoreList.Add(new Highscore("Anony","mouse", 1+i));
+                    //foreach (var highscoreEntry in highscoreList)
+                    //{
+                    //    Console.WriteLine("Name:{0} {1} |\tScore:{2}", highscoreEntry.FirstName, highscoreEntry.LastName, highscoreEntry.Score); // + "\t" + item.Date); 
+                    //}
+                }
+                foreach (var HighscoreEntry in highscoreList)
+                {
+                    AddNewHighscore(HighscoreEntry.FirstName, HighscoreEntry.LastName, HighscoreEntry.Score);
+                }
+            }
 
-            List<Highscore> SortedList = highscoreList.OrderBy(o => o.Score).ToList();
+            //highscoreList = highscoreList.OrderBy(o => o.Score).ToList();
+            //Console.WriteLine("Highscore saved. Ready.");
 
             return highscoreList;
+        }
+
+        public void PrintHighscoreList()
+        {
+            var highscoreList = ReadHighScoreList();
+            highscoreList = highscoreList.OrderByDescending(o => o.Score).ToList();
+
+            foreach (var item in highscoreList)
+            {
+                Console.WriteLine("{0} {1}\t{2}",
+                    item.FirstName,item.LastName, item.Score);
+            }
         }
     }
 }

@@ -22,22 +22,15 @@ namespace ArenaFighter
             while (gameOn)
             {
                 // Enter Player Fighter Name
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine("WELCOME TO THE BATTLEGROUNDS!\n\n");
                 
                 Console.WriteLine("-----------------------------------");
                 Console.WriteLine(" H I G H S C O R E S");
                 Console.WriteLine("-----------------------------------");
-                
-                foreach (var HighscoreEntry in HighscoreList)
-                {
-                    HighscoreCommand.AddNewHighscore(HighscoreEntry.FirstName, HighscoreEntry.LastName, HighscoreEntry.Score);
-                }
-                foreach (var HighscoreEntry in HighscoreList)
-                {
-                    Console.WriteLine("Name:{0} {1} |\tScore:{2}", HighscoreEntry.FirstName, HighscoreEntry.LastName, HighscoreEntry.Score); // + "\t" + item.Date); 
-                }
 
+                HighscoreCommand.PrintHighscoreList();
+                
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\t--------------------------------------------------");
                 Console.WriteLine("\t\t     Press any key to begin!");
