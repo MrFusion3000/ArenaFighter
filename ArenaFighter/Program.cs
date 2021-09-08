@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ArenaFighter;
 
 namespace ArenaFighter
 {
@@ -19,6 +16,8 @@ namespace ArenaFighter
             //int j = 0;
             
             //TODO Show Highscore on startscreen
+            //TODO Trim textfile to hold only top 10
+            //TODO Insert player Highscore if > top 10 placement
             
             while (gameOn)
             {
@@ -30,20 +29,22 @@ namespace ArenaFighter
                 Console.WriteLine(" H I G H S C O R E S");
                 Console.WriteLine("-----------------------------------");
                 
-                foreach (var Highscore in HighscoreList)
+                foreach (var HighscoreEntry in HighscoreList)
                 {
-                    Console.WriteLine("Name:{0} |\tScore:{1}", Highscore.Name, Highscore.Score); // + "\t" + item.Date); 
+                    HighscoreCommand.AddNewHighscore(HighscoreEntry.FirstName, HighscoreEntry.LastName, HighscoreEntry.Score);
+                }
+                foreach (var HighscoreEntry in HighscoreList)
+                {
+                    Console.WriteLine("Name:{0} {1} |\tScore:{2}", HighscoreEntry.FirstName, HighscoreEntry.LastName, HighscoreEntry.Score); // + "\t" + item.Date); 
                 }
 
-                
-                
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\t--------------------------------------------------");
                 Console.WriteLine("\t\t     Press any key to begin!");
                 Console.WriteLine("\t--------------------------------------------------\n");
                 Console.ReadKey();
                 
-                Console.WriteLine("First, Enter your fighters first name: ");
+                Console.WriteLine("First, Enter your fighters name: ");
                 var playerFirstName = Console.ReadLine();
                 Console.WriteLine("Now, Enter your fighters last name: ");
                 var playerLastName = Console.ReadLine();

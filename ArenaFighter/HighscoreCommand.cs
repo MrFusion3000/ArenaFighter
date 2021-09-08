@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace ArenaFighter
 {
     public class HighscoreCommand
     {
-        private static Highscore Highscore { get; set; }
-        private static string AddHighScoreEntry { get; set; }
+        private static Highscore Highscore { get; set; } = new Highscore(null,null,0);
+        //private static string AddHighScoreEntry { get; set; }
         private const string SavedHighscoreListName = @"Highscore" + ".txt";
         private List<Highscore> highscoreList = new List<Highscore>();
 
@@ -16,7 +17,8 @@ namespace ArenaFighter
 
         public static void AddNewHighscore(string firstName, string lastName, int score)
         {
-            Highscore.Name = firstName + " " + lastName;
+            Highscore.FirstName = firstName;
+            Highscore.LastName = lastName;
             Highscore.Score = score;
             //Highscore.Date = DateTime.Now;
             //AddHighScoreEntry = "name" + highscoreName + ":" + highscoreScore + ","; // + " " + Highscore.Date;
@@ -29,10 +31,8 @@ namespace ArenaFighter
 
         private static async void WriteHighScoreList(Highscore highscore)
         {
-            var newhighscore = new Highscore(highscore.Name, highscore.Score);
+            var newhighscore = new Highscore(highscore.FirstName, highscore.LastName, highscore.Score);
 
-            Console.WriteLine(highscore.Name + highscore.Score);
-            
             //var result = JsonConvert.SerializeObject(AddHighScoreEntry, Formatting.None);
             var result = JsonConvert.SerializeObject(newhighscore);
 
@@ -93,12 +93,14 @@ namespace ArenaFighter
         
         public List<Highscore> InitCreateTop10()
         {
-            highscoreList.Add(new Highscore("Anonymouse", 1));
-            highscoreList.Add(new Highscore("Anonymouse", 2));
-            highscoreList.Add(new Highscore("Anonymouse", 3));
-            highscoreList.Add(new Highscore("Anonymöuse", 4));
-            highscoreList.Add(new Highscore("Anonymouse", 5));
+            for (int i = 0; i < 9; i++)
+            {
+                highscoreList.Add(new Highscore("Anony","mouse", 1+i));
+            }
+            
+            highscoreList = highscoreList.OrderByDescending(o => o.Score).ToList();
 
+            List<Highscore> SortedList = highscoreList.OrderBy(o => o.Score).ToList();
 
             return highscoreList;
         }

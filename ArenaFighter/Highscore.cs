@@ -8,21 +8,28 @@ namespace ArenaFighter
 {
     public class Highscore
     {
-        private string name;
+        private string firstName;
+        private string lastName;
         private int score;
         //private DateTime date;
 
-        public Highscore(string name, int score) //, DateTime date)
+        public Highscore(string firstName, string lastName, int score) //, DateTime date)
         {
-            this.name = name;
+            this.firstName = firstName;
+            this.lastName = lastName;
             this.score = score;
             //this.date = date;
         }
 
-        public string Name
+        public string FirstName
         {
-            get { return name; }
-            set { name = value;}
+            get { return firstName; }
+            set { firstName = value;}
+        }
+        public string LastName
+        {
+            get { return lastName; }
+            set { lastName = value;}
         }
 
         public int Score
