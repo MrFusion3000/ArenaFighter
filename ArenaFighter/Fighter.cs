@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ArenaFighter
@@ -31,6 +32,24 @@ namespace ArenaFighter
         public int TotalScore { get; set; }
 
         //public override string ToString() => FirstName + LastName;
+
+        public static Fighter CreatePlayer(Fighter player)
+        {
+            //var Player = new Fighter();
+            var Player = player;
+            if (Player.FirstName == "firstname")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("First, Enter your fighters name: ");
+                //var playerFirstName = Console.ReadLine();
+                Player.FirstName = Console.ReadLine();
+                Console.WriteLine("Now, Enter your fighters last name: ");
+                //var playerLastName = Console.ReadLine();
+                Player.LastName = Console.ReadLine();
+            }
+
+            return Player;
+        }
 
         public int AttributeConfig()
         {

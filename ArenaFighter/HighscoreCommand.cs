@@ -62,10 +62,9 @@ namespace ArenaFighter
                     Console.WriteLine($"Something wrong: {ex}");
                 }
             }
-
             return highscoreList;
         }
-        
+
         public List<Highscore> InitCreateTop10()
         {
             Console.WriteLine(File.Exists(SavedHighscoreListName)
@@ -77,10 +76,6 @@ namespace ArenaFighter
                 for (int i = 0; i < 9; i++)
                 {
                     highscoreList.Add(new Highscore("Anony","mouse", 1+i));
-                    //foreach (var highscoreEntry in highscoreList)
-                    //{
-                    //    Console.WriteLine("Name:{0} {1} |\tScore:{2}", highscoreEntry.FirstName, highscoreEntry.LastName, highscoreEntry.Score); // + "\t" + item.Date); 
-                    //}
                 }
                 foreach (var HighscoreEntry in highscoreList)
                 {
@@ -98,12 +93,34 @@ namespace ArenaFighter
         {
             var highscoreList = ReadHighScoreList();
             highscoreList = highscoreList.OrderByDescending(o => o.Score).ToList();
+            
+            // Clear txt-file
+            File.WriteAllText(SavedHighscoreListName, String.Empty);
 
-            foreach (var item in highscoreList)
+            if (highscoreList.Count < 10)
             {
-                Console.WriteLine("{0} {1}\t{2}",
-                    item.FirstName,item.LastName, item.Score);
+                highscoreList.Add(new Highscore("Anony","mouse", 1));
             }
+            for (int i = 0; i < 10; i++)
+            {
+                //foreach (var HighscoreEntry in highscoreList)
+            
+                //Write each line to console
+                Console.WriteLine("\t{0} {1}\t{2}",
+                    highscoreList[i].FirstName,highscoreList[i].LastName, highscoreList[i].Score);
+                //Write enach entry to file
+                AddNewHighscore(highscoreList[i].FirstName, highscoreList[i].LastName, highscoreList[i].Score);
+            }
+
+            //TrimHighscoreList();
+        }
+
+        private static void TrimHighscoreList()
+        {
+            var lines = System.IO.File.ReadAllLines(SavedHighscoreListName);
+            var lineCount = lines.Length - 10;
+
+            System.IO.File.WriteAllLines(SavedHighscoreListName, lines.Take(lines.Length - lineCount).ToArray());
         }
     }
 }

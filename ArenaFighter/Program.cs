@@ -1,28 +1,24 @@
 ﻿using System;
+using System.Net.Security;
 
 namespace ArenaFighter
 {
-    class Program
+    internal static class Program
     {
         public static void Main(string[] args)
         {
             var HighscoreCommand = new HighscoreCommand();
-            // Declare and init variables and classes
-            //var Highscores = new List<Highscore>(); 
-
             var HighscoreList = HighscoreCommand.InitCreateTop10();
-
+            var Player = new Fighter("firstname", "lastname");
             var gameOn = true;
-            //int j = 0;
             
-            //TODO Show Highscore on startscreen
-            //TODO Trim textfile to hold only top 10
-            //TODO Insert player Highscore if > top 10 placement
-            
+            Console.Clear();
+
             while (gameOn)
             {
                 // Enter Player Fighter Name
-                //Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("WELCOME TO THE BATTLEGROUNDS!\n\n");
                 
                 Console.WriteLine("-----------------------------------");
@@ -32,22 +28,13 @@ namespace ArenaFighter
                 HighscoreCommand.PrintHighscoreList();
                 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\t--------------------------------------------------");
-                Console.WriteLine("\t\t     Press any key to begin!");
-                Console.WriteLine("\t--------------------------------------------------\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("\t     Press any key to begin!");
+                Console.WriteLine("--------------------------------------------------\n");
                 Console.ReadKey();
                 
-                Console.WriteLine("First, Enter your fighters name: ");
-                var playerFirstName = Console.ReadLine();
-                Console.WriteLine("Now, Enter your fighters last name: ");
-                var playerLastName = Console.ReadLine();
-
                 // Create Player
-                var Player = new Fighter()
-                {
-                    FirstName = playerFirstName,
-                    LastName = playerLastName
-                };
+                Player = Fighter.CreatePlayer(Player);
 
                 var tournamentOn = true;
 
@@ -55,7 +42,7 @@ namespace ArenaFighter
                 while (tournamentOn)
                 {
                     // Start a Battle
-                    Battle battle = new Battle(Player);
+                    var battle = new Battle(Player);
 
                     if (Player.Health <= 0)
                     {
@@ -65,7 +52,7 @@ namespace ArenaFighter
                         Console.WriteLine("\tYour total score is: {0}", Player.TotalScore);
                         Console.WriteLine("------------------------------------------");
 
-                        //HighscoreCommand.AddNewHighscore(Player.FirstName, Player.LastName, Player.TotalScore);
+                        HighscoreCommand.AddNewHighscore(Player.FirstName, Player.LastName, Player.TotalScore);
 
                         tournamentOn = false;
                     }
@@ -87,7 +74,6 @@ namespace ArenaFighter
                     if (input == "n" || input == "N")
                     {
                         HighscoreCommand.AddNewHighscore(Player.FirstName, Player.LastName, Player.TotalScore);
-                        //Highscores.Add(new Highscore(Player.FirstName, Player.LastName, Player.TotalScore));
 
                         tournamentOn = false;
                     }
@@ -96,17 +82,33 @@ namespace ArenaFighter
                     }
                 }
 
-                Console.WriteLine("H I G H S C O R E");
+                Console.WriteLine("------------------------------------------");
+                Console.WriteLine("\tH I G H S C O R E");
                 Console.WriteLine("------------------------------------------");
                 
-                    HighscoreCommand.ReadHighScoreList();
+                    HighscoreCommand.PrintHighscoreList();
 
-                    Console.WriteLine("Wanna play a new game of ArenaFighter|BattleGrounds? (Y/N)");
+                    Console.WriteLine("Do you wanna play a new game of ArenaFighter|BattleGrounds? (Y/N)");
                 var io = Console.ReadLine();
 
                 if ( io == "n")
                 {
                     gameOn = false;
+                }
+                else
+                {
+                    Console.WriteLine("Same player? (y/n)");
+                    io = Console.ReadLine();
+                    if (io == "y")
+                    {
+                        Player = new Fighter(Player.FirstName, Player.LastName);
+                    }
+                    else
+                    {
+                        Console.WriteLine( "\nWell, alrighty then...\n");
+                        Player = new Fighter("firstname", "lastname");
+                        Player = Fighter.CreatePlayer(Player);
+                    }
                 }
             }
         }
