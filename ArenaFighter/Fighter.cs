@@ -9,6 +9,9 @@ namespace ArenaFighter
         //Fighter Overload 0 - if name is omitted it's considered to be an opponent
         public Fighter() 
         {
+            /// <summary>
+            /// Will return FirstName, LastName, Health, Strength
+            /// </summary>
             FirstName = OpponentRndFirstName();
             LastName = OpponentRndLastName();
             Health = AttributeConfig();
