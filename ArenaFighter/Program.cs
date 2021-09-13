@@ -5,7 +5,7 @@ namespace ArenaFighter
 {
     internal static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             var HighscoreCommand = new HighscoreCommand();
             var HighscoreList = HighscoreCommand.InitCreateTop10();
@@ -22,7 +22,7 @@ namespace ArenaFighter
                 Console.WriteLine("WELCOME TO THE BATTLEGROUNDS!\n\n");
                 
                 Console.WriteLine("-----------------------------------");
-                Console.WriteLine(" H I G H S C O R E S");
+                Console.WriteLine("\tH I G H S C O R E S");
                 Console.WriteLine("-----------------------------------");
 
                 HighscoreCommand.PrintHighscoreList();
@@ -76,6 +76,7 @@ namespace ArenaFighter
                         HighscoreCommand.AddNewHighscore(Player.FirstName, Player.LastName, Player.TotalScore);
 
                         tournamentOn = false;
+                        Console.WriteLine("Good riddance!");
                     }
                     else {
                         Console.WriteLine("G A M E  O N ! ! !");
@@ -83,7 +84,7 @@ namespace ArenaFighter
                 }
 
                 Console.WriteLine("------------------------------------------");
-                Console.WriteLine("\tH I G H S C O R E");
+                Console.WriteLine("\tH I G H S C O R E S");
                 Console.WriteLine("------------------------------------------");
                 
                     HighscoreCommand.PrintHighscoreList();

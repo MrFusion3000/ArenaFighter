@@ -92,6 +92,8 @@ namespace ArenaFighter
         public void PrintHighscoreList()
         {
             var highscoreList = ReadHighScoreList();
+            var tab = "";
+            var fullName = "";
             highscoreList = highscoreList.OrderByDescending(o => o.Score).ToList();
             
             // Clear txt-file
@@ -103,11 +105,22 @@ namespace ArenaFighter
             }
             for (int i = 0; i < 10; i++)
             {
-                //foreach (var HighscoreEntry in highscoreList)
-            
+                fullName = highscoreList[i].FirstName + highscoreList[i].LastName;
                 //Write each line to console
-                Console.WriteLine("\t{0} {1}\t{2}",
-                    highscoreList[i].FirstName,highscoreList[i].LastName, highscoreList[i].Score);
+                if (fullName.Length <= 8)
+                {
+                    tab = "\t\t\t";
+                }
+                //else if (fullName.Length >= 11)
+                //{
+                //    tab = "";
+                //}
+                else
+                {
+                    tab = "\t\t";
+                }
+                Console.WriteLine("{4}\t{0} {1}{3}{2}",
+                    highscoreList[i].FirstName,highscoreList[i].LastName, highscoreList[i].Score, tab, i+1);
                 //Write enach entry to file
                 AddNewHighscore(highscoreList[i].FirstName, highscoreList[i].LastName, highscoreList[i].Score);
             }
