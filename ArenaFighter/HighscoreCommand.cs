@@ -82,10 +82,6 @@ namespace ArenaFighter
                     AddNewHighscore(HighscoreEntry.FirstName, HighscoreEntry.LastName, HighscoreEntry.Score);
                 }
             }
-
-            //highscoreList = highscoreList.OrderBy(o => o.Score).ToList();
-            //Console.WriteLine("Highscore saved. Ready.");
-
             return highscoreList;
         }
 
@@ -121,7 +117,7 @@ namespace ArenaFighter
                 }
                 Console.WriteLine("{4}\t{0} {1}{3}{2}",
                     highscoreList[i].FirstName,highscoreList[i].LastName, highscoreList[i].Score, tab, i+1);
-                //Write enach entry to file
+                //Write each entry to file
                 AddNewHighscore(highscoreList[i].FirstName, highscoreList[i].LastName, highscoreList[i].Score);
             }
 

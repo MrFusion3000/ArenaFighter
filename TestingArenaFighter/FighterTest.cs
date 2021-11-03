@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Xunit;
 using ArenaFighter;
 
@@ -7,28 +8,24 @@ namespace TestingArenaFighter
     public class FighterTest
     {
         [Theory]
-        [InlineData(5, 10, 15)]
-        [InlineData(6, 10, 16)]
-        [InlineData(null, 10, 10)]
+        [InlineData("Sven", "Sven" )]
+        [InlineData("Colt","Colt")]
+        //[InlineData(null, 10, 10)]
 
-        public void TestAddTwoNumbers(int? adder1,int? adder2,double expected)
+        public void TestAddFighterFirstName(string firstName, string expected)
         {
             //Arrange
-            var sut = new Calculator();
+            Fighter fighter = new Fighter
+            {
+                FirstName = firstName
+            };
+
             //Act
-            var result = sut.Add(adder1, adder2);
+            var actualObj = Fighter.CreatePlayer(fighter);
+            var actual = actualObj.FirstName;
             //Assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, actual);
         }
 
-    }
-
-    public class Calculator
-    {
-        public double? Add(int? adder1, int? adder2)
-        {
-            var sum = (adder1 ?? 0) + (adder2 ?? 0);
-            return sum;
-        }
     }
 }
